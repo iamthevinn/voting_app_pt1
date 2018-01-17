@@ -8,14 +8,97 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="node_modules/react/umd/react.development.js"></script>
   <script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <style>
+      .rectangle {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 1px solid black;
+          width  : 300px;
+          height : 80px;
+          margin : 0 auto;
+          font-family: sans-serif;
+          font-size: 30px;
+      }
+      </style>
 </head>
 
 <body>
-<div id="app">
-</div>
-  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<div id="header"></div>
+<div id="votingBoxes"></div>
+<!--<p class="rectangle">React</p>-->
+
+  
   <script type="text/babel">
-    ReactDOM.render(<h1>Hello!</h1>, document.getElementById('app') );
+
+
+    const headerStyle = {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontFamily: 'sans-serif',
+      fontSize: '48px'
+    }
+
+    const votingButtonStyle = {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontFamily: 'sans-serif',
+      fontSize: '30px',
+      width: '300px',
+      height: '80px',
+      margin: '0 auto',
+      border: '1px solid black'
+    }
+
+    let votingOptions = ['React', 'Vue', 'Angular', 'Ember']
+    let optionValues = [15,12,9,4]
+
+    function Circle(props) {
+      return (
+        <div style={styleObject}>
+          Hello
+          <p>From the brilliant minds of <a href="https://facebook.github.io">Facebook</a></p>
+          <ul>
+            {thingsIHaveToDo.map((thing, idx) => {
+              return <li key={idx}>{thing}</li>
+            })}  
+          </ul>
+        </div>
+      )
+    }
+
+    function Header(props) {
+      return (
+      <p style={headerStyle}>Vote Your JS Library!</p>
+      )
+    }
+
+    /*function VotingBox(props) {
+      return React.createElement('p', { style: votingButtonStyle }, props.languageValue + " " + props.languageName)
+    }
+*/
+    function JSXVotingBox(props) {
+      return (
+        <p key={props.key} style={votingButtonStyle}>{props.languageValue} {props.languageName}</p>
+      )
+    }
+
+    /*function VotingBoxes(props) {
+      return votingOptions.map((value,index) => React.createElement(VotingBox,{key: index, languageName: votingOptions[index], languageValue: optionValues[index]}))
+    }
+    */
+
+    function JSXVotingForm(props) {
+      return votingOptions.map((value,index) => JSXVotingBox({key: index, languageName: votingOptions[index], languageValue: optionValues[index]}))
+    }
+
+    ReactDOM.render(<Header />, document.getElementById('header'));
+    //ReactDOM.render(<VotingBoxes />, document.getElementById('votingBoxes'));
+    ReactDOM.render(<JSXVotingForm />, document.getElementById('votingBoxes'));
+
   </script>
 </body>
 
