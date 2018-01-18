@@ -88,7 +88,7 @@
       fontSize: '48px'
     }
 
-    const votingButtonStyle = {
+    const votingRectangleStyle = {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -112,13 +112,21 @@
         width: '33%',
         textAlign: 'center'
       }
+    
+    const plusSignContainerStyle = {
+        width: '33%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+        
+    }
 
     const plusSign = {
-        width: '33%',
         textAlign: 'center',
         fontWeight: 'bold',
         fontSize: '48px',
-        color: 'green'
+        color: 'green',
+        display: 'inline'
       }
 
     const circleOutline = {
@@ -154,12 +162,14 @@
 
     function VotingBox(props) {
       return (
-        <div key={props.key} style={votingButtonStyle}>
+        <div key={props.key} style={votingRectangleStyle}>
           <div style={votingCountStyle}>
             <div style={circleOutline}>{props.numberOfVotes}</div>
           </div>
           <div style={libraryNameStyle}>{props.languageName}</div>
-          <div onClick={() => {alert("You voted for " + props.languageName)} } style={plusSign}>+</div>
+          <div style={plusSignContainerStyle}>
+            <div style={plusSign} onClick={() => {alert("You voted for " + props.languageName)} } >+</div>
+          </div>
         </div>
       )
     }
