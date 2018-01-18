@@ -21,19 +21,39 @@
           font-family: sans-serif;
           font-size: 30px;
       }
-      .circle {
+      #circle {
           display: flex;
           align-items: center;
           justify-content: center;
-          position:absolute;
-          left: 300px;
+          position: relative;
           width  : 50px;
           height : 50px;
           border-radius: 50%;
           font-family: sans-serif;
           font-size: 30px;
-          background-color: green;
+          border: 1px solid black;
       }
+      .voteCount {
+        width: 33%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+      }
+
+      #libraryName {
+        width:33%;
+        text-align: center;
+      }
+
+      #plusSign {
+        width: 33%;
+        text-align: center;
+        font-weight: bold;
+        font-size: 48px;
+        color: green
+      }
+
       </style>
 </head>
 
@@ -42,22 +62,20 @@
 <div id="votingBoxes"></div>
 <!--
 <div class="rectangle">
-  <p class="circle">15</p>
-  <p>React</p>
+    <div class="voteCount">
+      <div id="circle">5</div>
+    </div>
+    <div id="libraryName">React</div>
+    <div id="plusSign">+</div>
 </div>
 <div class="rectangle">
-    <p class="circle">6</p>
-    <p>Next Language</p>
-  </div>
-  <div class="rectangle">
-      <p class="circle">12</p>
-      <p>Third</p>
+    <div class="voteCount">
+      <div id="circle">12</div>
     </div>
-    <div class="rectangle">
-        <p class="circle">4</p>
-        <p>Last One</p>
-      </div>
-    -->
+    <div id="libraryName">Vue</div>
+    <div id="plusSign">+</div>
+</div>
+--> 
   
   <script type="text/babel">
 
@@ -79,25 +97,54 @@
       width: '300px',
       height: '80px',
       margin: '0 auto',
-      border: '1px solid black'
+      border: '3px solid black',
+      marginTop: '-3px'
     }
 
-    let votingOptions = ['React', 'Vue', 'Angular', 'Ember']
-    let optionValues = [15,12,9,4]
-
-    function Circle(props) {
-      return (
-        <div style={styleObject}>
-          Hello
-          <p>From the brilliant minds of <a href="https://facebook.github.io">Facebook</a></p>
-          <ul>
-            {thingsIHaveToDo.map((thing, idx) => {
-              return <li key={idx}>{thing}</li>
-            })}  
-          </ul>
-        </div>
-      )
+    const votingCountStyle = {
+      width: '33%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
     }
+
+    const libraryNameStyle = {
+        width: '33%',
+        textAlign: 'center'
+      }
+
+    const plusSign = {
+        width: '33%',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: '48px',
+        color: 'green'
+      }
+
+    const circleOutline = {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          width  : '50px',
+          height : '50px',
+          borderRadius: '50%',
+          fontFamily: 'sans-serif',
+          fontSize: '30px',
+          border: '1px solid black'
+      }
+
+
+    let votingData = [{
+      jsLibraryName: 'React', voteCount: 15
+      }, {
+        jsLibraryName: 'Vue', voteCount: 12
+        }, {
+          jsLibraryName: 'Angular', voteCount: 9
+          }, {
+            jsLibraryName: 'Ember', voteCount: 4
+            }]
+
 
     function Header(props) {
       return (
@@ -105,23 +152,42 @@
       )
     }
 
-    /*function VotingBox(props) {
-      return React.createElement('p', { style: votingButtonStyle }, props.languageValue + " " + props.languageName)
-    }
-*/
     function JSXVotingBox(props) {
       return (
-        <p key={props.key} style={votingButtonStyle}>{props.languageValue} {props.languageName}</p>
+        //<div key={props.key} style={votingButtonStyle}>{props.numberOfVotes} {props.languageName}</div>
+        <div key={props.key} style={votingButtonStyle}>
+          <div style={votingCountStyle}>
+            <div style={circleOutline}>{props.numberOfVotes}</div>
+          </div>
+          <div style={libraryNameStyle}>{props.languageName}</div>
+          <div style={plusSign}>+</div>
+        </div>
       )
     }
 
+/*
+    <div class="rectangle">
+    <div class="voteCount">
+      <div id="circle">5</div>
+    </div>
+    <div id="libraryName">React</div>
+    <div id="plusSign">+</div>
+</div>
+<div class="rectangle">
+    <div class="voteCount">
+      <div id="circle">12</div>
+    </div>
+    <div id="libraryName">Vue</div>
+    <div id="plusSign">+</div>
+</div>
+*/
     /*function VotingBoxes(props) {
       return votingOptions.map((value,index) => React.createElement(VotingBox,{key: index, languageName: votingOptions[index], languageValue: optionValues[index]}))
     }
     */
 
     function JSXVotingForm(props) {
-      return votingOptions.map((value,index) => JSXVotingBox({key: index, languageName: votingOptions[index], languageValue: optionValues[index]}))
+      return votingData.map((value,index) => JSXVotingBox({key: index, languageName: votingData[index].jsLibraryName, numberOfVotes: votingData[index].voteCount}))
     }
 
     ReactDOM.render(<Header />, document.getElementById('header'));
