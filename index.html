@@ -159,7 +159,7 @@
             <div style={circleOutline}>{props.numberOfVotes}</div>
           </div>
           <div style={libraryNameStyle}>{props.languageName}</div>
-          <div style={plusSign}>+</div>
+          <div onClick={() => {alert("You voted for " + props.languageName)} } style={plusSign}>+</div>
         </div>
       )
     }
